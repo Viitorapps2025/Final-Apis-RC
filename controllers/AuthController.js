@@ -132,6 +132,9 @@ export const verifyOTP = async (req, res) => {
         if (user.otp !== otp) {
             return res.status(400).json({ status: "failed", message: "Invalid OTP" });
         }
+        
+   // Generate JWT token
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '24h' }); // Adjust expiration as needed
 
         // Check OTP expiration
         const currentTime = new Date();
@@ -165,7 +168,7 @@ export const verifyOTP = async (req, res) => {
         user.isUserVerified = true;
         await user.save();
 
-        res.status(200).json({ status: "success", message: "OTP verified successfully" });
+        res.status(200).json({ status: "success", message: "OTP verified successfully",token });
     } catch (error) {
         console.error("Error verifying OTP:", error);
         res.status(500).json({ status: "failed", message: "Unable to verify OTP" });
