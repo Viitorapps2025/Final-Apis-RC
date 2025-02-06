@@ -46,7 +46,7 @@ export const registerUser = async (req, res) => {
         await transporter.sendMail({
             from: process.env.EMAIL_FROM,
             to: email,
-            subject: `${otp} is your OTP for email verification on RiderzConnect`,
+            subject: `${otp} is your OTP for email verification on RiderzConnect.`,
             html: html
         });
 
@@ -97,7 +97,7 @@ export const loginUser = async (req, res) => {
         await transporter.sendMail({
             from: process.env.EMAIL_FROM,
             to: user.email,
-            subject: "RiderzConnect- New OTP for Login",
+            subject: "RiderzConnects- New OTP for Login",
             html: `<h1>${otp}</h1>`
         });
 
